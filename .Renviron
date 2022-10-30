@@ -1,0 +1,2 @@
+PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"
+RENV_DOWNLOAD_METHOD="wininet"
