@@ -1,0 +1,26 @@
+h2 {
+    text-align: center;
+}
+
+td {
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.well {
+    margin-bottom: 2px;
+    padding: 5px;
+}
+
+.shiny-input-container {
+    margin-bottom: 1px;
+}
+
+.selectize-control {
+    margin-bottom: 0px;
+    font-size: 12px;
+}
+
+.has-options {
+    height: 15px !important;
+}

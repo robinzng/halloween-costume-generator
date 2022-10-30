@@ -1,0 +1,62 @@
+# Define server logic required to draw a histogram
+server <- function(input, output, session) {
+  
+
+# Define image fn ---------------------------------------------------------
+  renderPNG <- function(name) {
+    renderImage({
+      filename <- normalizePath(file.path('./www/',
+                                          paste(name, '.png', sep='')))
+      
+      list(src = filename)
+    }, deleteFile = FALSE)
+  }
+  
+  
+  observeEvent(input$go, {
+    costumes_filtered <- costumes_duped %>% 
+      filter(if(!is.null(input$outerwear_colors)) {outerwear_color %in% input$outerwear_colors} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$outerwear_styles)) {outerwear_style %in% input$outerwear_styles} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$tops_colors)) {top_color %in% input$tops_colors} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$tops_styles)) {top_style %in% input$tops_styles} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$bottoms_colors)) {bottom_color %in% input$bottoms_colors} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$bottoms_styles)) {bottom_style %in% input$bottoms_styles} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$one_piece_colors)) {one_piece_color %in% input$one_piece_colors} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$one_piece_styles)) {one_piece_style %in% input$one_piece_styles} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$shoes_colors)) {shoe_color %in% input$shoes_colors} 
+             else {TRUE}) %>%
+      filter(if(!is.null(input$shoes_styles)) {shoe_style %in% input$shoes_styles} 
+             else {TRUE}) 
+    
+    costumes_visible <- costumes_filtered %>%
+      mutate(link = paste0("<h2>", character, " from ", media, "</h2> <a href=\"", link, "\"> <img src=\"", link, "\" height=\"200\"></a>")) %>%
+      select(link) %>%
+      unique() %>%
+      as.matrix() 
+    
+    length(costumes_visible) <- prod(dim(matrix(costumes_visible, ncol=3)))
+    
+    costumes_visible <- matrix(costumes_visible, ncol=3)
+      
+    output$options <- renderDataTable(datatable(costumes_visible, 
+                                                colnames = rep("", 3),
+                                                rownames = FALSE,
+                                                escape=FALSE, 
+                                                options=list(dom='tp',
+                                                             ordering=FALSE), 
+                                                selection='none',
+                                                class=list(stripe=FALSE)))
+    
+    
+  })
+
+}
+
