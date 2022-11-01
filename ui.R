@@ -1,4 +1,6 @@
 ui <- fluidPage(
+  use_googlefont("Work Sans"), 
+  
   tags$head(
     tags$link(rel='stylesheet', type='text/css', href='styles.css')
   ),
