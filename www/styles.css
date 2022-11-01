@@ -1,7 +1,7 @@
 body {
     background-color: black;
     color: white; 
-    font-family: 'Playfair Display', serif;
+    font-family: 'Work Sans', sans-serif;
 }
 
 h2 {
@@ -14,6 +14,7 @@ td {
 }
 
 .well {
+    font-weight: 100;
     background-color: black;
     border: 1px solid black;
     margin-bottom: 2px;
